@@ -9,7 +9,6 @@ import { useRouter, usePathname } from "next/navigation";
 import Home from './home'; // Import your HomePage component
 
 
-
 const inter = Inter({ subsets: ["latin"] });
 export default function RootLayout({
   children,
@@ -20,7 +19,11 @@ export default function RootLayout({
   const router = useRouter();
   const currentPath = usePathname();
   
-
+  const TestEndpoint = () => {
+    fetch('http://localhost:8000/testing/')
+        .catch(error => alert(error));
+  };
+  TestEndpoint();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     //e.preventDefault();
