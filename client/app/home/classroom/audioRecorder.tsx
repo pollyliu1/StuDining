@@ -68,11 +68,15 @@ export default function AudioRecorder() {
           if (audioUrl !== null) {
             formData.append("audio", audioUrl);
           }
-          Axios.post("http://127.0.0.1:8000/google/", audioUrl, {
-            withCredentials: true,
+          formData.append('audio', audioBlob);
+
+          fetch('http://127.0.0.1:8000/google/', {
+            method: 'POST',
+            body: formData
           })
-            .then((res) => alert(res))
-            .catch((error) => alert(error));
+          .then(response => response.json())
+          .then(data => console.log(data))
+          .catch(error => console.error(error));
         }, 200);
        
       };
