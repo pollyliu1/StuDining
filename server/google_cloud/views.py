@@ -8,14 +8,18 @@ from django.http import HttpResponse, Http404
 import urllib.request
 
 class Upload(View):
+    
+    def __init__(self):
+        self.audio_file = None
+
     @csrf_exempt
     def post(self, request):
         if request.method == 'POST':
             print("getting post request")
             
-            audio_file = request.FILES['audio'] # get the uploaded file
+            self.audio_file = request.FILES['audio'] # get the uploaded file
             with open('audio.webm', 'wb+') as destination:
-                for chunk in audio_file.chunks():
+                for chunk in self.audio_file.chunks():
                     destination.write(chunk)
             return HttpResponse("file uploaded")
 
