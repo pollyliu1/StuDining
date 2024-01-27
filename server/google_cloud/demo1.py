@@ -2,6 +2,7 @@ import io
 from google.oauth2 import service_account
 from google.cloud import speech
 
+# this file is not useful. i just wanted to see if i could get the google cloud speech api to work - grace
 client_file = 'speech_demo_key'
 credentials = service_account.Credentials.from_service_account_file(client_file + '.json')
 client = speech.SpeechClient(credentials=credentials)
