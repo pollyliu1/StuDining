@@ -55,7 +55,6 @@ destination_blob_name = f"audio-files/{file_name}"
 # Upload the WAV file to GCS
 upload_blob(bucket_name, source_file_name, destination_blob_name)
 
-
 # Speech Client
 client = speech.SpeechClient(credentials=credentials)
 
