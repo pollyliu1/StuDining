@@ -4,6 +4,6 @@
   "enableWordTimeOffsets": true
   },
 "audio":{
-  "uri":"gs://gcs-test-data/gettysburg.flac"
+  "uri":"gs:<filepath>"
   }
 }
