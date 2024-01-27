@@ -1,5 +1,4 @@
-import io
-import os
+import io, os
 import wave 
 from google.cloud import storage, speech
 from google.oauth2 import service_account
