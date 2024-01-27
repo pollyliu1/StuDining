@@ -10,7 +10,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --foreground-rgb: 255, 255, 255;
+    --foreground-rgb: 0, 0, 0;
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
   }
@@ -18,7 +18,7 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background-color: tan;
+  background-color: #222222;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -35,24 +35,33 @@ body {
   position: fixed;
   top: 0;
   width: 100%;
-  background: gray;
+  background: rgb(75, 75, 75);
   list-style-type: none;
   margin: 0;
   padding: 0;
   overflow: hidden;
+  z-index: 1;
 }
-
+.iconimg{
+  width: 100%;
+  display: block;
+  background: url("~/styles/background.gif") no-repeat center center fixed;
+  background-size: contain;
+}
 .icon li a {
+  
   border-radius: 3px;
   display: block;
   color: black;
   border-color: #141414;
+  box-shadow: 10px 5px 5px 0px rgba(0,0,0,0.75); /* Add this line */
   border-width: 1px;
   margin: 0.5rem;
   margin-top: 0.5rem;
   background-color: #333333;
+  font-weight: bold;
   text-align: center;
-  padding: 14px 16px;
+  padding: 20px 16px;
   text-decoration: none;
 }
 
@@ -61,11 +70,22 @@ body {
   background-color: #cfcfcf;
 }
 
+.navbox {
+  top: 0;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  z-index: 1;
+}
+
 .navbar {
   display: flex;
-  position: absolute;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+
   top: 0;
-  right: 0;
   list-style-type: none;
   overflow: hidden;
 }
@@ -79,12 +99,13 @@ body {
   display: block;
   color: black;
   border-color: #141414;
+  box-shadow: 10px 5px 5px 0px rgba(0,0,0,0.75); /* Add this line */
   border-width: 1px;
   margin: 0.5rem;
   margin-top: 0.5rem;
   background-color: #333333;
   text-align: center;
-  padding: 28px 50px;
+  padding: 20px 120px;
   text-decoration: none;
 }
 

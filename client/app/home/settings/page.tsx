@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from 'react';
 
 export default function Settings() {
@@ -5,7 +6,7 @@ export default function Settings() {
     const [language, setLanguage] = useState('english');
 
     return (
-        <div>
+        <div style={{ marginTop: '6rem', position: 'absolute', top: 0, left: 0, width: '100vw', height: '100vh' }}>
             <h1>Settings</h1>
 
             <div>
