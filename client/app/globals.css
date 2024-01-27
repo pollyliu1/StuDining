@@ -133,7 +133,7 @@ body {
 .login input[type="text"],
 .login input[type="password"] {
   margin-bottom: 1rem;
-  background-color: black;
+  background-color: white;
   padding: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -163,4 +163,33 @@ body {
   justify-content: center;
   min-height: 100vh;
   padding: 1rem;
+}
+
+.button-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.audio-controls{
+    background-color: #ccc;
+    padding: 20px 20px;
+    margin-bottom: 20px;
+}
+.audio-player{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.audio-player,
+.recorded-player {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.live-player {
+    height: 200px;
+    width: 400px;
+    border: 1px solid #646cff;
+    margin-bottom: 30px;
 }
