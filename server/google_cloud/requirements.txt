@@ -1,0 +1,9 @@
+{
+"config": {
+  "languageCode": "en-US",
+  "enableWordTimeOffsets": true
+  },
+"audio":{
+  "uri":"gs://gcs-test-data/gettysburg.flac"
+  }
+}
