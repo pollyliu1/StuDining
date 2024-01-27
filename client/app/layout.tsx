@@ -8,6 +8,12 @@ import { useRouter, usePathname } from "next/navigation";
 
 import Home from './home'; // Import your HomePage component
 
+const TestEndpoint = () => {
+  fetch('http://localhost:8000/testing/')
+    .then(response => response.text())  // parse the response body as text
+    .then(data => console.log(data))  // print the response body
+    .catch(error => console.error('Error:', error));
+};
 
 const inter = Inter({ subsets: ["latin"] });
 export default function RootLayout({
@@ -19,19 +25,13 @@ export default function RootLayout({
   const router = useRouter();
   const currentPath = usePathname();
   
-  const TestEndpoint = () => {
-    fetch('http://localhost:8000/testing/')
-      .then(response => response.text())  // parse the response body as text
-      .then(data => console.log(data))  // print the response body
-      .catch(error => console.error('Error:', error));
-  };
-  TestEndpoint();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    TestEndpoint();
     //e.preventDefault();
     // Add your authentication logic here if needed
-    setIsLoggedIn(true);
-    router.push("/home");
+    //setIsLoggedIn(true);
+    //router.push("/home");
   };
   
   if (isLoggedIn || currentPath != "/") {
@@ -55,4 +55,6 @@ export default function RootLayout({
     {children}
     </html>
   );
+
+  
 }
