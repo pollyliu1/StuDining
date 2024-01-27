@@ -65,9 +65,6 @@ export default function AudioRecorder() {
           alert("recording stopped");
  
           let formData = new FormData();
-          if (audioUrl !== null) {
-            formData.append("audio", audioUrl);
-          }
           formData.append('audio', audioBlob);
 
           fetch('http://127.0.0.1:8000/google/', {
