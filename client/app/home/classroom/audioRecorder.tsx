@@ -1,5 +1,7 @@
 "use client";
 import { useState, useRef } from "react";
+import Axios from "axios";
+
 export default function AudioRecorder() {
   const [permission, setPermission] = useState(false);
   const mediaRecorder = useRef<MediaRecorder | null>(null);
@@ -7,6 +9,8 @@ export default function AudioRecorder() {
   const [stream, setStream] = useState<MediaStream | null>(null);
   const [audioChunks, setAudioChunks] = useState<Blob[]>([]);
   const [audio, setAudio] = useState<string | null>(null);
+  const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
+
   const getMicrophonePermission = async () => {
     if ("MediaRecorder" in window) {
       try {
@@ -35,7 +39,7 @@ export default function AudioRecorder() {
       //set the MediaRecorder instance to the mediaRecorder ref
       mediaRecorder.current = media;
       //invokes the start method to start the recording process
-      mediaRecorder.current.start();
+      mediaRecorder.current.start(0);
       let localAudioChunks: Blob[] = [];
       mediaRecorder.current.ondataavailable = (event) => {
         if (typeof event.data === "undefined") return;
@@ -45,8 +49,7 @@ export default function AudioRecorder() {
       setAudioChunks(localAudioChunks);
     }
   };
-
-  const stopRecording = () => {
+  const stopRecording = async () => {
     setRecordingStatus("inactive");
     //stops the recording instance
     if (mediaRecorder.current) {
@@ -54,12 +57,27 @@ export default function AudioRecorder() {
       mediaRecorder.current.onstop = () => {
         //creates a blob file from the audiochunks data
         const audioBlob = new Blob(audioChunks, { type: "audio/webm" });
+        setAudioBlob(audioBlob);
         //creates a playable URL from the blob file.
         const audioUrl = URL.createObjectURL(audioBlob);
         setAudio(audioUrl);
-        setAudioChunks([]);
-        alert("recording stopped")
+        setTimeout(() => {
+          alert("recording stopped");
+ 
+          let formData = new FormData();
+          formData.append('audio', audioBlob);
+
+          fetch('http://127.0.0.1:8000/google/', {
+            method: 'POST',
+            body: formData
+          })
+          .then(response => response.json())
+          .then(data => console.log(data))
+          .catch(error => console.error(error));
+        }, 200);
+       
       };
+      
     }
   };
   return (
