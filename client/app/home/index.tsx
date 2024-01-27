@@ -17,7 +17,7 @@ export default function Home({
       <body className={inter.className}>
         <nav
           style={{
-            disply: "flex",
+            display: "flex",
             position: "fixed",
             width: "100%",
             top: 0,
