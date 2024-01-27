@@ -10,7 +10,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --foreground-rgb: 255, 255, 255;
+    --foreground-rgb: 0, 0, 0;
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
   }
@@ -18,16 +18,149 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background-color: #222222;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+.icon {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: rgb(75, 75, 75);
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  z-index: 1;
+}
+.iconimg{
+  width: 100%;
+  display: block;
+  background: url("~/styles/background.gif") no-repeat center center fixed;
+  background-size: contain;
+}
+.icon li a {
+  
+  border-radius: 3px;
+  display: block;
+  color: black;
+  border-color: #141414;
+  box-shadow: 10px 5px 5px 0px rgba(0,0,0,0.75); /* Add this line */
+  border-width: 1px;
+  margin: 0.5rem;
+  margin-top: 0.5rem;
+  background-color: #333333;
+  font-weight: bold;
+  text-align: center;
+  padding: 20px 16px;
+  text-decoration: none;
+}
+
+.icon li a:hover {
+  transition-duration: 200ms;
+  background-color: #cfcfcf;
+}
+
+.navbox {
+  top: 0;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.navbar {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+
+  top: 0;
+  list-style-type: none;
+  overflow: hidden;
+}
+
+.navbar li {
+  float: center;
+}
+
+.navbar li a {
+  border-radius: 3px;
+  display: block;
+  color: black;
+  border-color: #141414;
+  box-shadow: 10px 5px 5px 0px rgba(0,0,0,0.75); /* Add this line */
+  border-width: 1px;
+  margin: 0.5rem;
+  margin-top: 0.5rem;
+  background-color: #333333;
+  text-align: center;
+  padding: 20px 120px;
+  text-decoration: none;
+}
+
+.navbar li a:hover {
+  transition-duration: 200ms;
+  margin-top: 0.3rem;
+  background-color: #cfcfcf;
+}
+
+.login {
+  background: url("~/styles/background.gif") no-repeat center center fixed;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 1rem;
+}
+
+.login label {
+  margin-bottom: 0.5rem;
+}
+
+.login input[type="text"],
+.login input[type="password"] {
+  margin-bottom: 1rem;
+  background-color: black;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.login input[type="submit"] {
+  background-color: #0070f3;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.login input[type="submit"]:hover {
+  background-color: #0051bb;
+}
+
+.classroom {
+  background: url("~/styles/classroom.avif") no-repeat center center fixed;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 1rem;
 }
