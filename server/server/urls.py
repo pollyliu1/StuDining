@@ -21,7 +21,7 @@ from server.views import testing
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('client.urls')),  # Add this line to link to the client app
+    # path('api/', include('client.urls')),  # Add this line to link to the client app
     path('testing/', testing),
 ]
 

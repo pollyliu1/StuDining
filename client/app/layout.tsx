@@ -21,7 +21,9 @@ export default function RootLayout({
   
   const TestEndpoint = () => {
     fetch('http://localhost:8000/testing/')
-        .catch(error => alert(error));
+      .then(response => response.text())  // parse the response body as text
+      .then(data => console.log(data))  // print the response body
+      .catch(error => console.error('Error:', error));
   };
   TestEndpoint();
 
