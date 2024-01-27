@@ -31,14 +31,42 @@ body {
   }
 }
 
-.navbar {
+.icon {
   position: fixed;
   top: 0;
   width: 100%;
-  background: tan, opacity(0.9);
+  background: gray;
   list-style-type: none;
   margin: 0;
   padding: 0;
+  overflow: hidden;
+}
+
+.icon li a {
+  border-radius: 3px;
+  display: block;
+  color: black;
+  border-color: #141414;
+  border-width: 1px;
+  margin: 0.5rem;
+  margin-top: 0.5rem;
+  background-color: #333333;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.icon li a:hover {
+  transition-duration: 200ms;
+  background-color: #cfcfcf;
+}
+
+.navbar {
+  display: flex;
+  position: absolute;
+  top: 0;
+  right: 0;
+  list-style-type: none;
   overflow: hidden;
 }
 
@@ -47,18 +75,24 @@ body {
 }
 
 .navbar li a {
-  border-radius: 2rem;
+  border-radius: 3px;
   display: block;
   color: black;
+  border-color: #141414;
+  border-width: 1px;
+  margin: 0.5rem;
+  margin-top: 0.5rem;
+  background-color: #333333;
   text-align: center;
-  padding: 14px 16px;
+  padding: 28px 50px;
   text-decoration: none;
 }
 
 .navbar li a:hover {
   transition-duration: 200ms;
-  background-color: #ff7f7f;
-} 
+  margin-top: 0.3rem;
+  background-color: #cfcfcf;
+}
 
 .login {
   background: url("~/styles/background.gif") no-repeat center center fixed;
