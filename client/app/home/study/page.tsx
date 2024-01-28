@@ -2,16 +2,19 @@
 import Image from "next/image";
 import { useEffect, useContext, useState } from "react";
 import img from "../../../../assets/Leftbar.png";
-import imgMother from "../../../../assets/mother.png";
+import imgMotherH from "../../../../assets/Mom Happy.png";
+import imgFatherH from "../../../../assets/Dad Happy.png";
+import imgMotherM from "../../../../assets/Mom Mad.png";
+import imgFatherM from "../../../../assets/Dad Mad.png";
 
 import { Container, Col, Row } from "react-bootstrap";
 import { UserContext } from "../index";
 export default function Study() {
- 
   const [input, setInput] = useState("");
 
   let [Cohere, setCohere] = useState("");
   const [blank, setBlank] = useState("");
+
   let [isLoading, setIsLoading] = useState(true);
   const userContext = useContext(UserContext);
 
@@ -22,30 +25,47 @@ export default function Study() {
     voice = userContext.voice;
     setVoice = userContext.setVoice;
   }
-  const [messages, setMessages] = useState<{ text: string; sender: string }[]>([]);
+
+  const [theme, setTheme] = useState("light");
+
+  let parent, setP: any;
+
+  if (userContext !== null) {
+    parent = userContext.parent;
+    setP = userContext.setP;
+  }
+
+  let tone, setTone: any;
+
+  if (userContext !== null) {
+    tone = userContext.tone;
+    setTone = userContext.setTone;
+  }
+
+  const [messages, setMessages] = useState<{ text: string; sender: string }[]>(
+    []
+  );
 
   useEffect(() => {
-  if(isLoading){
-  fetch('http://127.0.0.1:8000/summarize/')
-      .then(response => response.text()) // parse the response body as text
-      .then(data => {
-        setIsLoading(false);
-        setBlank(data);
-        
+    if (isLoading) {
+      fetch("http://127.0.0.1:8000/summarize/")
+        .then((response) => response.text()) // parse the response body as text
+        .then((data) => {
+          setIsLoading(false);
+          setBlank(data);
         })
-       // print the response body
-       .catch(error => {
-        console.error('Error:', error);
-
-      });
-    }}, []);
-
-useEffect(() => {
-  if(blank != ""){
-    messages.push({ text: blank, sender: "other" });
+        // print the response body
+        .catch((error) => {
+          console.error("Error:", error);
+        });
     }
-}, [blank]);
+  }, []);
 
+  useEffect(() => {
+    if (blank != "") {
+      messages.push({ text: blank, sender: "other" });
+    }
+  }, [blank]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -57,20 +77,17 @@ useEffect(() => {
       utterance.voice = voicesArray[1];
       speechSynthesis.speak(utterance);
     }
-    if(input != "") {
-    setMessages([...messages, { text: input, sender: "user" }]);
+    if (input != "") {
+      setMessages([...messages, { text: input, sender: "user" }]);
     }
   };
-
-  
-
 
   // Fetch data --> 1.)
   useEffect(() => {
     // Fetch the Cohere data from the server
     try {
       fetch(`http://127.0.0.1:8000/message`, {
-        method: "GET"
+        method: "GET",
       })
         .then((res) => res.text())
         .then((data) => {
@@ -83,13 +100,10 @@ useEffect(() => {
   }, []);
 
   useEffect(() => {
-    if(Cohere != ""){
+    if (Cohere != "") {
       setMessages([...messages, { text: Cohere, sender: "other" }]);
-      }
-
+    }
   }, [Cohere]);
-
-
 
   return (
     <Container className="study flex w-100">
@@ -100,12 +114,17 @@ useEffect(() => {
       </Col>
       <Col>
         <div style={{ display: "flex", marginTop: "10rem" }}>
-          <Image
-            src={imgMother}
-            width={400}
-            height={100}
-            alt={"whoopsies"}
-          ></Image>
+          {tone === "m" ? (
+            parent === "m" ? (
+              <Image src={imgMotherM} alt="Mother" width={300} height={300} />
+            ) : (
+              <Image src={imgFatherM} alt="Father" width={300} height={300} />
+            )
+          ) : parent === "m" ? (
+            <Image src={imgMotherH} alt="Mother" width={250} height={300} />
+          ) : (
+            <Image src={imgFatherH} alt="Father" width={300} height={300} />
+          )}
         </div>
       </Col>
       <Col className="d-flex mr-40 mt-40 ml-auto">
@@ -131,7 +150,6 @@ useEffect(() => {
           >
             {messages.map((message, index) => (
               <div
-              
                 key={index}
                 className={`p-2 m-2 rounded ${
                   message.sender === "user"

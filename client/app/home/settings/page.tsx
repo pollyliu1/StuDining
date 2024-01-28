@@ -21,6 +21,13 @@ export default function Settings() {
       parent = userContext.parent;
       setP = userContext.setP;
     }
+
+    let tone, setTone: any;
+    
+    if (userContext !== null) {
+      tone = userContext.tone;
+      setTone = userContext.setTone;
+    }
     return (<Container  style={{
         display: 'flex',
         justifyContent: 'center',
@@ -41,7 +48,7 @@ export default function Settings() {
         }}>
           <h1 className='m-5 '>Settings</h1>
       
-          <div>
+          <div className='p-1'>
             <label>Parent: </label>
             <select value={parent} onChange={(e) => setP(e.target.value)}>
               <option value="m">Mother</option>
@@ -49,18 +56,25 @@ export default function Settings() {
             </select>
           </div>
       
-          <div>
+          <div className='p-1'>
             <label>Theme: </label>
             <select value={theme} onChange={(e) => setTheme(e.target.value)}>
               <option value="light">Light</option>
               <option value="dark">Dark</option>
             </select>
           </div>
-          <div>
+          <div className='p-1'>
             <label>Voice: </label>
             <select value={voice} onChange={(e) => setVoice(e.target.value)}>
               <option value={"true"}>True</option>
               <option value={"false"}>False</option>
+            </select>
+          </div>
+          <div className='p-1'>
+            <label>Tone: </label>
+            <select value={tone} onChange={(e) => setTone(e.target.value)}>
+              <option value={"h"}>Happy</option>
+              <option value={"m"}>Mad</option>
             </select>
           </div>
         </div>

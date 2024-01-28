@@ -12,6 +12,8 @@ type UserContextType = {
   setP: React.Dispatch<React.SetStateAction<string>>;
   voice: string;
   setVoice: React.Dispatch<React.SetStateAction<string>>;
+  tone: string;
+  setTone: React.Dispatch<React.SetStateAction<string>>;
 };
 export const UserContext = React.createContext<UserContextType | null>(null);
 export default function Home({
@@ -21,6 +23,8 @@ export default function Home({
 }>) {
   const [voice, setVoice] = useState("true");
   const [parent, setP] = useState("m");
+  const [tone, setTone] = useState("m");
+  
   return (
     <html lang="en">
       <body className={inter.className}>
@@ -95,7 +99,7 @@ export default function Home({
               </ul>
           </ul>
         </nav>
-        <UserContext.Provider value={{ voice: voice, setVoice: setVoice, parent: parent, setP: setP }}>
+        <UserContext.Provider value={{ voice: voice, setVoice: setVoice, parent: parent, setP: setP, tone: tone, setTone: setTone }}>
         {children}
         </UserContext.Provider>
       </body>
