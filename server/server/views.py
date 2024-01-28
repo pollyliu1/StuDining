@@ -78,5 +78,7 @@ class Upload(View):
             co = cohere.Client(os.getenv("COHERE_API_KEY"))
             summary += co.summarize(text=transcription).summary
 
+        print(summary)
+
         return HttpResponse(summary)
         
