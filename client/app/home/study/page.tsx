@@ -36,6 +36,15 @@ export default function Study() {
     setMessages([...messages, { text: input, sender: "user" }]);
   };
 
+
+  const SummarizeRecent = () => {
+    fetch('http://127.0.0.1:8000/summarize/')
+      .then(response => response.text())  // parse the response body as text
+      .then(data => console.log(data))  // print the response body
+      .catch(error => console.error('Error:', error));
+  };
+  SummarizeRecent();
+
   // Fetch data --> 1.)
   useEffect(() => {
     // Fetch the Cohere data from the server
