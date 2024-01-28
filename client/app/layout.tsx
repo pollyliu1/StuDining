@@ -30,7 +30,7 @@ export default function RootLayout({
   };
   
   if (isLoggedIn || currentPath != "/") {
-    console.log("logged in");
+console.log("logged in");
     return (<Home>{children}</Home>); // Render the HomePage component if the user is logged in
   }
   return (        

@@ -1,6 +1,6 @@
 "use client";
 import { useState, useRef } from "react";
-import Axios from "axios";
+//import Axios from "axios";
 
 export default function AudioRecorder() {
   const [permission, setPermission] = useState(false);
@@ -68,7 +68,7 @@ export default function AudioRecorder() {
           let formData = new FormData();
           formData.append('audio', audioBlob);
 
-          fetch('http://127.0.0.1:8000/google/', {
+          fetch('http://127.0.0.1:8000/processaudio/', {
             method: 'POST',
             body: formData
           })
