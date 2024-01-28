@@ -106,7 +106,7 @@ class Upload(View):
 
         # Send the wav file to the speech to text api
         transcription = ""
-        #transcription += transcribe(outputpath)
+        transcription += transcribe(outputpath)
 
         # Send the transcription to the summarization api
         if transcription != "":
