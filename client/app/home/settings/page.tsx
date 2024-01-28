@@ -51,8 +51,8 @@ export default function Settings() {
           <div className='p-1'>
             <label>Parent: </label>
             <select value={parent} onChange={(e) => setP(e.target.value)}>
-              <option value="m">Mother</option>
-              <option value="f">Father</option>
+              <option value="mother">Mother</option>
+              <option value="father">Father</option>
             </select>
           </div>
       
@@ -73,8 +73,8 @@ export default function Settings() {
           <div className='p-1'>
             <label>Tone: </label>
             <select value={tone} onChange={(e) => setTone(e.target.value)}>
-              <option value={"h"}>Happy</option>
-              <option value={"m"}>Mad</option>
+              <option value={"happy"}>Happy</option>
+              <option value={"mad"}>Mad</option>
             </select>
           </div>
         </div>

@@ -87,17 +87,17 @@ export default function AudioRecorder() {
         <div className="audio-controls">
           {!permission ? (
             <button className="audio-button" onClick={getMicrophonePermission} type="button">
-              Mic
+              
             </button>
           ) : null}
           {permission && recordingStatus === "inactive" ? (
-            <button className="audio-button" onClick={() => startRecording()} type="button">
-              Start
+            <button className="audio-button3" onClick={() => startRecording()} type="button">
+              
             </button>
           ) : null}
           {recordingStatus === "recording" ? (
             <button className="audio-button2" onClick={stopRecording} type="button">
-              Stop
+              
             </button>
           ) : null}
         </div>

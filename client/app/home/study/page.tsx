@@ -126,13 +126,13 @@ export default function Study() {
       </Col>
       <Col>
         <div style={{ display: "flex", marginTop: "10rem" }}>
-          {tone === "m" ? (
-            parent === "m" ? (
+          {tone === "mad" ? (
+            parent === "mother" ? (
               <Image src={imgMotherM} alt="Mother" width={300} height={300} />
             ) : (
               <Image src={imgFatherM} alt="Father" width={300} height={300} />
             )
-          ) : parent === "m" ? (
+          ) : parent === "mother" ? (
             <Image src={imgMotherH} alt="Mother" width={250} height={300} />
           ) : (
             <Image src={imgFatherH} alt="Father" width={300} height={300} />
@@ -147,23 +147,24 @@ export default function Study() {
             position: "relative",
             top: 0,
             right: 0,
-            width: "550px",
+            width: "580px",
           }}
         >
           <div
             className="overflow-auto p-4"
             style={{
               wordWrap: "break-word",
-              scale: "0.95",
-              marginTop: "2.45rem",
-              maxHeight: "24rem",
+              scale: "0.90",
+              marginTop: "2rem",
+              marginLeft: "5.5rem",
+              maxHeight: "24.5rem",
               width: "24rem",
             }}
           >
             {messages.map((message, index) => (
               <div
                 key={index}
-                className={`p-2 m-2 rounded ${
+                className={`p-2 m-1 mr-0 rounded ${
                   message.sender === "user"
                     ? "bg-blue-500 text-white"
                     : "bg-gray-300"

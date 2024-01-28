@@ -17,6 +17,7 @@
 }
 
 body {
+  font-family:'Berlin Sans FB', 'Arial', sans-serif;
   color: rgb(var(--foreground-rgb));
   background-color: #222222;
   -webkit-background-size: cover;
@@ -32,10 +33,12 @@ body {
 }
 
 .icon {
+  font-family:'Berlin Sans FB', 'Arial', sans-serif;
+
   position: fixed;
   top: 0;
   width: 100%;
-  background: rgb(75, 75, 75);
+  background: rgb(28, 11, 75);
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -44,11 +47,23 @@ body {
 }
 
 .iconimg{
+  background-size: cover;
+  width: 100%;
+  display: block;
+  padding-top: 0.45rem;
+  padding-left: 0.85rem;
+  padding-right: 0.35rem;
+}
+
+
+.sett {
+  background-size: cover;
   width: 100%;
   display: block;
   padding-left: 0.35rem;
   padding-right: 0.35rem;
 }
+
 
 .icon li a {
   
@@ -60,7 +75,7 @@ body {
   border-width: 1px;
   margin: 0.5rem;
   margin-top: 0.5rem;
-  background-color: #333333;
+  background-color: #321f55;
   font-weight: bold;
   text-align: center;
   padding: 20px 16px;
@@ -100,13 +115,13 @@ body {
   display: block;
   color: white;
   border-color: #141414;
-  box-shadow: 10px 5px 5px 0px rgba(0,0,0,0.75); /* Add this line */
+  box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75); /* Add this line */
   border-width: 1px;
   margin: 0.5rem;
   margin-top: 0.5rem;
-  background-color: #333333;
+  background-color: #321f55;
   text-align: center;
-  padding: 20px 120px;
+  padding: 20px 360px;
   text-decoration: none;
 }
 
@@ -117,6 +132,8 @@ body {
 }
 
 .login {
+  font-family:'Berlin Sans FB', 'Arial', sans-serif;
+
   background: url("~/styles/background.gif") no-repeat center center fixed;
   background-size: cover;
   display: flex;
@@ -128,6 +145,8 @@ body {
 }
 
 .login label {
+  font-family:'Berlin Sans FB', 'Arial', sans-serif;
+
   margin-bottom: 0.5rem;
 }
 
@@ -156,14 +175,12 @@ body {
 }
 
 .classroom {
+  font-family:'Berlin Sans FB', 'Arial', sans-serif;
+
   background: url("../../assets/Classroom.png") no-repeat center center fixed;
   background-size: cover;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 89vh;
-  padding: 1rem;
+  min-height: 80vh;
 }
 
 .study {
@@ -174,6 +191,8 @@ body {
 }
 
 .chatbox {
+  font-family:'Berlin Sans FB', 'Arial', sans-serif;
+
   background: url("../../assets/Chat.png") no-repeat center center fixed;
   background-size: contain;
   display: flex;
@@ -204,18 +223,30 @@ body {
     border-radius: 100%;
     justify-content: center;
     align-items: center;
-    font-size: x-large;
-    padding: 210px 200px;
+    font-size:xx-large;
+    padding: 130px 130px;
 }
-
+.audio-button3{
+  color: #000000;
+  display: flex;
+  background-color: green;
+  opacity: 0.5;
+  border-radius: 100%;
+  justify-content: center;
+  align-items: center;
+  font-size:xx-large;
+  padding: 130px 130px;
+}
 .audio-button2{
   color: #960000;
+  background-color: red;
+  opacity: 0.5;
   display: flex;
   border-radius: 100%;
   justify-content: center;
   align-items: center;
-  font-size: x-large;
-  padding: 210px 200px;
+  font-size: xx-large;
+  padding: 130px 130px;
 }
 
 

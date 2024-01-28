@@ -6,6 +6,7 @@ import "../globals.css";
 import Image from "next/image";
 import img from "../../../assets/settings.png";
 import { useState } from "react";
+import ico from "../../../assets/logo.png";
 const inter = Inter({ subsets: ["latin"] });
 type UserContextType = {
   parent: string;
@@ -22,8 +23,8 @@ export default function Home({
   children: React.ReactNode;
 }>) {
   const [voice, setVoice] = useState("true");
-  const [parent, setP] = useState("m");
-  const [tone, setTone] = useState("m");
+  const [parent, setP] = useState("mother");
+  const [tone, setTone] = useState("mad");
   
   return (
     <html lang="en">
@@ -49,23 +50,22 @@ export default function Home({
             }}
           >
             <li style={{ float: "left" }}>
-              <Link href="/home">
+              
                 <div
+                className="iconimg"
                   style={{
                     display: "block",
                     color: "black",
                     textAlign: "center",
                     textDecoration: "none",
                   }}
-                >
-                  Home
+                ><Image alt="whoops" src={ico}  width={70} height={26}></Image>
                 </div>
-              </Link>
             </li>
             <li style={{ float: "right" }}>
               <Link href="/home/settings">
                 <div
-                  className="iconimg"
+                  className="sett"
                   style={{
                     display: "block",
                     textAlign: "center",
