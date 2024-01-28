@@ -32,6 +32,7 @@ CSRF_TRUSTED_ORIGINS = ['http://localhost:3000','https://*.127.0.0.1']
 CSRF_COOKIE_SECURE = False
 
 INSTALLED_APPS = [
+    'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

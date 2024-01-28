@@ -19,6 +19,7 @@ from django.urls import path, include
 import google_cloud.views
 
 urlpatterns = [
+    path('', include('api.urls')),
     path('admin/', admin.site.urls),
     path('google/', google_cloud.views.Upload.as_view()),
 ]
