@@ -28,14 +28,16 @@ export default function Study() {
 
   const [theme, setTheme] = useState("light");
 
-  let parent, setP: any;
+  let parent: any;
+  let setP: any;
 
   if (userContext !== null) {
     parent = userContext.parent;
     setP = userContext.setP;
   }
 
-  let tone, setTone: any;
+  let tone: any;
+  let setTone: any;
 
   if (userContext !== null) {
     tone = userContext.tone;
@@ -80,6 +82,22 @@ export default function Study() {
     if (input != "") {
       setMessages([...messages, { text: input, sender: "user" }]);
     }
+
+    let formData = new FormData();
+    formData.append("message", input);
+    if (parent !== null) {
+      formData.append("parent", parent.toString());
+    }
+    if (tone !== null) {
+      formData.append("tone", tone.toString());
+    }
+    fetch("http://127.0.0.1:8000/message/", {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data))
+      .catch((error) => console.error(error));
   };
 
   // Fetch data --> 1.)
@@ -135,14 +153,14 @@ export default function Study() {
             position: "relative",
             top: 0,
             right: 0,
-            width: "350px",
+            width: "550px",
           }}
         >
           <div
             className="overflow-auto p-4"
             style={{
               wordWrap: "break-word",
-              scale: "0.75",
+              scale: "0.95",
               marginTop: "2.45rem",
               maxHeight: "24rem",
               width: "24rem",
@@ -181,8 +199,8 @@ export default function Study() {
                 borderRadius: "2rem",
                 width: "18.54rem",
                 height: "2rem",
-                marginTop: "0.33rem",
-                marginLeft: "1.75rem",
+                marginTop: "2.33rem",
+                marginLeft: "5.75rem",
                 marginRight: "0.0rem",
                 marginBottom: "0.5rem",
               }}
