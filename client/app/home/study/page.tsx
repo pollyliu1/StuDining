@@ -83,17 +83,10 @@ export default function Study() {
       setMessages([...messages, { text: input, sender: "user" }]);
     }
 
-    let formData = new FormData();
-    formData.append("message", input);
-    if (parent !== null) {
-      formData.append("parent", parent.toString());
-    }
-    if (tone !== null) {
-      formData.append("tone", tone.toString());
-    }
+    
     fetch("http://127.0.0.1:8000/message/", {
       method: "POST",
-      body: formData,
+      body: JSON.stringify({ message: input, parent: parent, tone: tone}),
     })
       .then((response) => response.json())
       .then((data) => console.log(data))
