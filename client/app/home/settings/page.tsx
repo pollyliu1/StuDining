@@ -74,7 +74,7 @@ export default function Settings() {
             <label>Tone: </label>
             <select value={tone} onChange={(e) => setTone(e.target.value)}>
               <option value={"happy"}>Happy</option>
-              <option value={"mad"}>Mad</option>
+              <option value={"stern"}>Stern</option>
             </select>
           </div>
         </div>

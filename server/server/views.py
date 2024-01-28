@@ -20,42 +20,58 @@ outputpath = os.path.join(parent_dir, 'Test.wav')
 # Summarize global variables
 summary = ""
 buffer = ""
+summarized = False
 
 # Message global data (for tone/parent selections)
 message_prompt = ""
 def reprompt(tone, msg):
     global message_prompt
-    message_prompt = (
-              "You are a highly demanding and strict parent with no tolerance for academic laziness.\n" +
+    if tone == "stern" :
+        message_prompt = (
+              "You are a demanding and strict parent with no tolerance for academic laziness.\n" +
               "Your child needs to understand their lecture notes perfectly. No excuses.\n" +
               "Explain the concept from the notes with sharp precision and a stern " + tone + ",\n" +
               "emphasizing the absolute necessity of mastering this material for their future success.\n" +
               "Your explanations should be direct, no-nonsense, and show your high expectations.\n" +
-              "Pretend your child doesn't listen in class. Pretend you want to slap them.\n" +
+              "Pretend your child doesn't listen in class.\n" +
               "Your child doesn't want to listen so use mean language.\n\n" +
               
               "User Input:\n{}\n\n").format(msg)
+    else:
+        message_prompt = ("You are a supportive and understanding parent who values education and personal growth. \n" + 
+                          "You realize that your child might be struggling with their lecture notes and needs a gentle nudge towards appreciating their importance. \n" + 
+                          "With a tone of encouragement and patience, explain the concept from the notes, highlighting how mastering this material can open doors to a bright and successful future. \n " + 
+                          "Understand that your child might not yet see the value of school, so use language that is motivating and empathetic. \n" + 
+                          "Engage them in a calm and nurturing manner to help them see the importance of their education. \n" + 
+                          "Remember, your goal is to guide and inspire, not to intimidate. \n\n" 
+                          + "User Input:\n{}\n\n").format(msg)
     return message_prompt
 
 
 def summarize(request):
     global summary
-    print("study session started") 
+    global summarized
+    
+    if not summarized:
+        print("study session started") 
 
-    # We are starting a new converstation, clear the buffer
-    buffer = ""
+        # We are starting a new converstation, clear the buffer
+        buffer = ""
+        
+        # Default for if you have no class information
+        if summary == "":
+            summary = "Disgraceful child how dare you not be attending class, " \
+            "you are a disgrace to the family. You are not my child. I am disowning you."\
+            " You are no longer my child."
+            print("No transcription found")
 
-    # Default for if you have no class information
-    if summary == "":
-        summary = "Disgraceful child how dare you not be attending class, " \
-        "you are a disgrace to the family. You are not my child. I am disowning you."\
-        " You are no longer my child."
-        print("No transcription found")
-
-    # Return
-    buffer = buffer + summary + "\n"
-    print(summary)
-    return HttpResponse(summary)
+        # Return
+        buffer = buffer + summary + "\n"
+        print(summary)
+        summarized = True
+        return HttpResponse(summary)
+    else:
+        return HttpResponse("")
 
 
 class Upload(View):
@@ -90,15 +106,15 @@ class Upload(View):
 
         # Send the wav file to the speech to text api
         transcription = ""
-        transcription += transcribe(outputpath)
+        #transcription += transcribe(outputpath)
 
         # Send the transcription to the summarization api
         if transcription != "":
             print("Sending to cohere")
             co = cohere.Client(os.getenv("COHERE_API_KEY"))
             summary += co.summarize(text=transcription).summary
-
-        print(summary)
+        else:
+            print(summary)
 
         return HttpResponse(summary)
         
@@ -111,7 +127,7 @@ class Message(View):
         self.message = None,
         self.message_prompt = None,
         self.history = []
-        self.parent = "mom" # default is mom
+        self.parent = "mother" # default is mom
         self.tone = "stern" # default is strict
         self.response = None
     

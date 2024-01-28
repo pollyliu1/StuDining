@@ -24,7 +24,7 @@ export default function Home({
 }>) {
   const [voice, setVoice] = useState("true");
   const [parent, setP] = useState("mother");
-  const [tone, setTone] = useState("mad");
+  const [tone, setTone] = useState("stern");
   
   return (
     <html lang="en">

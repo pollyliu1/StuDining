@@ -73,12 +73,6 @@ export default function Study() {
     e.preventDefault();
     setInput("");
 
-    if (voice === "true") {
-      let utterance = new SpeechSynthesisUtterance(input);
-      let voicesArray = speechSynthesis.getVoices();
-      utterance.voice = voicesArray[1];
-      speechSynthesis.speak(utterance);
-    }
     if (input != "") {
       setMessages([...messages, { text: input, sender: "user" }]);
     }
@@ -89,9 +83,25 @@ export default function Study() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ message: input, parent: parent, tone: tone}),
     })
-      .then((response) => response.json())
-      .then((data) => console.log(data))
-      .catch((error) => console.error(error));
+    .then((response) => response.text()) // Convert the response to text
+    .then((text) => {
+      setBlank(text); // Set blank to the text of the response
+      if (text != "") {
+        if (voice === "true") {
+          let utterance = new SpeechSynthesisUtterance(text);
+          let voicesArray = speechSynthesis.getVoices();
+          if (parent === "mother") {
+            utterance.voice = voicesArray[4];
+          } else {
+          utterance.voice = voicesArray[1];
+          }
+          speechSynthesis.speak(utterance);
+        }
+        setMessages([...messages, { text: text, sender: "other" }]);
+      }
+    })
+    .then((data) => console.log(data))
+    .catch((error) => console.error(error));
   };
 
   // Fetch data --> 1.)
@@ -192,10 +202,10 @@ export default function Study() {
                 wordWrap: "break-word",
                 scale: "0.95",
                 borderRadius: "2rem",
-                width: "18.54rem",
-                height: "2rem",
-                marginTop: "2.33rem",
-                marginLeft: "5.75rem",
+                width: "23.21rem",
+                height: "2.5rem",
+                marginTop: "2.55rem",
+                marginLeft: "6.65rem",
                 marginRight: "0.0rem",
                 marginBottom: "0.5rem",
               }}
