@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Inter } from "next/font/google";
 import "../globals.css";
+import Image from "next/image";
+import img from "../../../assets/settings.png";
 import { useState } from "react";
 const inter = Inter({ subsets: ["latin"] });
 
@@ -38,7 +40,6 @@ export default function Home({
             <li style={{ float: "left" }}>
               <Link href="/home">
                 <div
-                  className="iconimg"
                   style={{
                     display: "block",
                     color: "black",
@@ -56,12 +57,11 @@ export default function Home({
                   className="iconimg"
                   style={{
                     display: "block",
-                    color: "black",
                     textAlign: "center",
                     textDecoration: "none",
                   }}
                 >
-                  Settings
+                  <Image src={img} width={26} height={26} alt={"whoopsies"}></Image>
                 </div>
               </Link>
             </li>

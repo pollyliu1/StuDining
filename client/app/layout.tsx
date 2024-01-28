@@ -26,7 +26,7 @@ export default function RootLayout({
     //e.preventDefault();
     // Add your authentication logic here if needed
     setIsLoggedIn(true);
-    router.push("/home");
+    router.push("/home/classroom");
   };
   
   if (isLoggedIn || currentPath != "/") {

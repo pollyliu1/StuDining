@@ -1,6 +1,6 @@
 "use client";
-import React, { useState } from "react";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import img from "../../../../assets/Leftbar.png";
 import { Container, Col, Row } from "react-bootstrap";
 
@@ -10,12 +10,32 @@ export default function Study() {
   ); // Provide initial value for messages state
   const [input, setInput] = useState("");
 
+  const [Cohere, setCohere] = useState("");
+
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setInput("");
     setMessages([...messages, { text: input, sender: "user" }]);
   };
 
+  
+    // Fetch data --> 1.)
+    useEffect(() => {
+      // Fetch the Cohere data from the server
+      fetch(`http://127.0.0.1:8000/cohere`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Token ${localStorage.getItem("token")}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setCohere(data);
+          setMessages((prevMessages) => [...prevMessages, { text: data, sender: "other" }]);
+        });
+    }, []);
   return (
     <Container className="study flex w-100">
       <Col>
@@ -24,10 +44,26 @@ export default function Study() {
         </div>
       </Col>
       <Col className="d-flex mr-40 mt-40 ml-auto">
-        <div className="chatbox oveflow-auto"
-          style={{ marginTop: "5rem", position: "relative", top: 0, right: 0, width: "350px"}}
+        <div
+          className="chatbox oveflow-auto"
+          style={{
+            marginTop: "5rem",
+            position: "relative",
+            top: 0,
+            right: 0,
+            width: "350px",
+          }}
         >
-          <div className="overflow-auto p-4" style={{ wordWrap: "break-word", scale: '0.75', marginTop: "2.45rem", maxHeight: "24rem", width: "24rem"}}>
+          <div
+            className="overflow-auto p-4"
+            style={{
+              wordWrap: "break-word",
+              scale: "0.75",
+              marginTop: "2.45rem",
+              maxHeight: "24rem",
+              width: "24rem",
+            }}
+          >
             {messages.map((message, index) => (
               <div
                 key={index}
@@ -42,16 +78,37 @@ export default function Study() {
             ))}
           </div>
 
-          <form onSubmit={handleSubmit} style={{position: "absolute", marginTop: "24.25rem", marginRight: "0rem",borderRadius: "2rem", width: "18.2rem"}}>
+          <form
+            onSubmit={handleSubmit}
+            style={{
+              position: "absolute",
+              marginTop: "24.25rem",
+              marginRight: "0rem",
+              borderRadius: "2rem",
+              width: "18.2rem",
+            }}
+          >
             <input
               type="text"
-              style={{ position: "relative", wordWrap: "break-word", scale: "0.95", borderRadius: "2rem", width: "18.54rem", height: "2rem", marginTop: "0.33rem", marginLeft: "1.75rem", marginRight: "0.0rem", marginBottom: "0.5rem"}}
+              style={{
+                position: "relative",
+                wordWrap: "break-word",
+                scale: "0.95",
+                borderRadius: "2rem",
+                width: "18.54rem",
+                height: "2rem",
+                marginTop: "0.33rem",
+                marginLeft: "1.75rem",
+                marginRight: "0.0rem",
+                marginBottom: "0.5rem",
+              }}
               value={input}
               onChange={(e) => setInput(e.target.value)}
               className=" p-2 border rounded text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral"
               placeholder="Type your message..."
             />
           </form>
+          
         </div>
       </Col>
     </Container>

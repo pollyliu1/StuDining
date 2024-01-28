@@ -42,12 +42,14 @@ body {
   overflow: hidden;
   z-index: 1;
 }
+
 .iconimg{
   width: 100%;
   display: block;
-  background: url("~/styles/background.gif") no-repeat center center fixed;
-  background-size: contain;
+  padding-left: 0.35rem;
+  padding-right: 0.35rem;
 }
+
 .icon li a {
   
   border-radius: 3px;
