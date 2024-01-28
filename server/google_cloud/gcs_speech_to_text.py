@@ -78,7 +78,7 @@ def gcs_speech_to_text(source_file_name):
     # Compile the transcription into one string
     output = ""
     for result in response.results:
-        output = output + result.alternatives[0].transcript + ". "
+        output = output + result.alternatives[0].transcript + "\n"
     
     print(output + "\n--------------------------------------")
     return output

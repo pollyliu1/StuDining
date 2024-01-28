@@ -61,11 +61,11 @@ export default function Study() {
           console.error("Error:", error);
         });
     }
-  }, []);
+  });
 
   useEffect(() => {
     if (blank != "") {
-      messages.push({ text: blank, sender: "other" });
+      //messages.push({ text: blank, sender: "other" });
     }
   }, [blank]);
 
@@ -85,9 +85,10 @@ export default function Study() {
     })
     .then((response) => response.text()) // Convert the response to text
     .then((text) => {
+      if ((messages).length < 1 || ((messages).length>= 0 && text != messages[messages.length - 1].text)) {
       setBlank(text); // Set blank to the text of the response
       if (text != "") {
-        if (voice === "true") {
+        if (voice == "true") {
           let utterance = new SpeechSynthesisUtterance(text);
           let voicesArray = speechSynthesis.getVoices();
           if (parent === "mother") {
@@ -97,35 +98,13 @@ export default function Study() {
           }
           speechSynthesis.speak(utterance);
         }
-        setMessages([...messages, { text: text, sender: "other" }]);
-      }
+        setMessages(prevMessages => [...prevMessages, { text: text, sender: "other" }]);
+      }}
     })
     .then((data) => console.log(data))
     .catch((error) => console.error(error));
   };
 
-  // Fetch data --> 1.)
-  useEffect(() => {
-    // Fetch the Cohere data from the server
-    try {
-      fetch(`http://127.0.0.1:8000/message`, {
-        method: "GET",
-      })
-        .then((res) => res.text())
-        .then((data) => {
-          setCohere(data);
-        })
-        .catch((error) => {});
-    } catch (error) {
-      console.error(error);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (Cohere != "") {
-      setMessages([...messages, { text: Cohere, sender: "other" }]);
-    }
-  }, [Cohere]);
 
   return (
     <Container className="study flex w-100">
@@ -136,7 +115,7 @@ export default function Study() {
       </Col>
       <Col>
         <div style={{ display: "flex", marginTop: "10rem" }}>
-          {tone === "mad" ? (
+          {tone === "stern" ? (
             parent === "mother" ? (
               <Image src={imgMotherM} alt="Mother" width={300} height={300} />
             ) : (
