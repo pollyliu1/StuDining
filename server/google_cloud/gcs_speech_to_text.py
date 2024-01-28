@@ -1,5 +1,5 @@
 import io, os
-import wave 
+import wave
 from google.cloud import storage, speech
 from google.oauth2 import service_account
 from dotenv import load_dotenv
