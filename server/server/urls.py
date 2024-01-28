@@ -17,8 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 import google_cloud.views
+import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('google/', google_cloud.views.Upload.as_view()),
+    path('summarize/', views.summarize)
 ]

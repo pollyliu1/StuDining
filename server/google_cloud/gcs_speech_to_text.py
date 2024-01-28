@@ -75,11 +75,15 @@ def gcs_speech_to_text(source_file_name):
     print("Waiting for operation to complete...")
     response = operation.result(timeout=90)
 
-    # print the transcription results 
+    # Compile the transcription into one string
+    output = ""
     for result in response.results:
-        print(result.alternatives[0].transcript)
+        output = output + result.alternatives[0].transcript + ". "
+    
+    print(output + "\n--------------------------------------")
+    return output
 
 
 if __name__ == "__main__":
-    audio_file_path = '/Users/graceliu/Downloads/male.wav'
+    audio_file_path = '/Users/ryans/Downloads/Test.wav'
     gcs_speech_to_text(audio_file_path)
