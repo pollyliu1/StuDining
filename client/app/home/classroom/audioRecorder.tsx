@@ -31,10 +31,11 @@ export default function AudioRecorder() {
   };
 
   const startRecording = async () => {
+    getMicrophonePermission();
+    if(!permission) return;
     setRecordingStatus("recording");
     //create new Media recorder instance using the stream
     if (stream) {
-      alert("recording");
       const media = new MediaRecorder(stream, { mimeType: "audio/webm" });
       //set the MediaRecorder instance to the mediaRecorder ref
       mediaRecorder.current = media;
@@ -85,27 +86,19 @@ export default function AudioRecorder() {
       <main>
         <div className="audio-controls">
           {!permission ? (
-            <button onClick={getMicrophonePermission} type="button">
-              Get Microphone
+            <button className="audio-button" onClick={getMicrophonePermission} type="button">
+              Mic
             </button>
           ) : null}
           {permission && recordingStatus === "inactive" ? (
-            <button onClick={() => startRecording()} type="button">
-              Start Recording
+            <button className="audio-button" onClick={() => startRecording()} type="button">
+              Start
             </button>
           ) : null}
           {recordingStatus === "recording" ? (
-            <button onClick={stopRecording} type="button">
-              Stop Recording
+            <button className="audio-button2" onClick={stopRecording} type="button">
+              Stop
             </button>
-          ) : null}
-          {audio ? (
-            <div className="audio-container">
-              <audio src={audio} controls></audio>
-              <a download href={audio}>
-                Download Recording
-              </a>
-            </div>
           ) : null}
         </div>
       </main>
