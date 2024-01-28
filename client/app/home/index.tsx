@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import React from "react";
 import Link from "next/link";
 import { Inter } from "next/font/google";
 import "../globals.css";
@@ -6,14 +7,20 @@ import Image from "next/image";
 import img from "../../../assets/settings.png";
 import { useState } from "react";
 const inter = Inter({ subsets: ["latin"] });
-
+type UserContextType = {
+  parent: string;
+  setP: React.Dispatch<React.SetStateAction<string>>;
+  voice: string;
+  setVoice: React.Dispatch<React.SetStateAction<string>>;
+};
+export const UserContext = React.createContext<UserContextType | null>(null);
 export default function Home({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [theme, setTheme] = useState("light");
-  const [language, setLanguage] = useState("english");
+  const [voice, setVoice] = useState("true");
+  const [parent, setP] = useState("m");
   return (
     <html lang="en">
       <body className={inter.className}>
@@ -88,7 +95,9 @@ export default function Home({
               </ul>
           </ul>
         </nav>
+        <UserContext.Provider value={{ voice: voice, setVoice: setVoice, parent: parent, setP: setP }}>
         {children}
+        </UserContext.Provider>
       </body>
     </html>
   );

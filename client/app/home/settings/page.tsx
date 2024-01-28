@@ -1,12 +1,26 @@
 "use client";
 import { Container } from 'react-bootstrap';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { UserContext } from '../index';
 
 export default function Settings() {
-    const [parent, setP] = useState('m');
 
     const [theme, setTheme] = useState('light');
+    const userContext = useContext(UserContext);
 
+    let voice, setVoice: any;
+    
+    if (userContext !== null) {
+      voice = userContext.voice;
+      setVoice = userContext.setVoice;
+    }
+
+    let parent, setP: any;
+    
+    if (userContext !== null) {
+      parent = userContext.parent;
+      setP = userContext.setP;
+    }
     return (<Container  style={{
         display: 'flex',
         justifyContent: 'center',
@@ -40,6 +54,13 @@ export default function Settings() {
             <select value={theme} onChange={(e) => setTheme(e.target.value)}>
               <option value="light">Light</option>
               <option value="dark">Dark</option>
+            </select>
+          </div>
+          <div>
+            <label>Voice: </label>
+            <select value={voice} onChange={(e) => setVoice(e.target.value)}>
+              <option value={"true"}>True</option>
+              <option value={"false"}>False</option>
             </select>
           </div>
         </div>

@@ -1,9 +1,11 @@
 "use client";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useContext, useState } from "react";
 import img from "../../../../assets/Leftbar.png";
-import { Container, Col, Row } from "react-bootstrap";
+import imgMother from "../../../../assets/mother.png";
 
+import { Container, Col, Row } from "react-bootstrap";
+import { UserContext } from "../index";
 export default function Study() {
   const [messages, setMessages] = useState<{ text: string; sender: string }[]>(
     []
@@ -12,18 +14,33 @@ export default function Study() {
 
   const [Cohere, setCohere] = useState("");
 
+  const userContext = useContext(UserContext);
+
+  let voice: string | undefined;
+  let setVoice: React.Dispatch<React.SetStateAction<string>> | undefined;
+
+  if (userContext !== null) {
+    voice = userContext.voice;
+    setVoice = userContext.setVoice;
+  }
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setInput("");
+    if (voice === "true") {
+      let utterance = new SpeechSynthesisUtterance(input);
+      let voicesArray = speechSynthesis.getVoices();
+      utterance.voice = voicesArray[1];
+      speechSynthesis.speak(utterance);
+    }
     setMessages([...messages, { text: input, sender: "user" }]);
   };
 
-  
-    // Fetch data --> 1.)
-    useEffect(() => {
-      // Fetch the Cohere data from the server
-      fetch(`http://127.0.0.1:8000/cohere`, {
+  // Fetch data --> 1.)
+  useEffect(() => {
+    // Fetch the Cohere data from the server
+    try {
+      fetch(`http://127.0.0.1:8000/message`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -33,14 +50,31 @@ export default function Study() {
         .then((res) => res.json())
         .then((data) => {
           setCohere(data);
-          setMessages((prevMessages) => [...prevMessages, { text: data, sender: "other" }]);
-        });
-    }, []);
+          setMessages((prevMessages) => [
+            ...prevMessages,
+            { text: Cohere, sender: "other" },
+          ]);
+        })
+        .catch((error) => {});
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
   return (
     <Container className="study flex w-100">
       <Col>
         <div style={{ display: "flex" }}>
           <Image src={img} width={476} height={10} alt={"whoopsies"}></Image>
+        </div>
+      </Col>
+      <Col>
+        <div style={{ display: "flex", marginTop: "10rem" }}>
+          <Image
+            src={imgMother}
+            width={400}
+            height={100}
+            alt={"whoopsies"}
+          ></Image>
         </div>
       </Col>
       <Col className="d-flex mr-40 mt-40 ml-auto">
@@ -108,7 +142,6 @@ export default function Study() {
               placeholder="Type your message..."
             />
           </form>
-          
         </div>
       </Col>
     </Container>

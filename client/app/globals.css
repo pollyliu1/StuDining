@@ -54,7 +54,7 @@ body {
   
   border-radius: 3px;
   display: block;
-  color: black;
+  color: white;
   border-color: #141414;
   box-shadow: 10px 5px 5px 0px rgba(0,0,0,0.75); /* Add this line */
   border-width: 1px;
@@ -86,7 +86,6 @@ body {
   position: relative;
   justify-content: center;
   align-items: center;
-
   top: 0;
   list-style-type: none;
   overflow: hidden;
@@ -99,7 +98,7 @@ body {
 .navbar li a {
   border-radius: 3px;
   display: block;
-  color: black;
+  color: white;
   border-color: #141414;
   box-shadow: 10px 5px 5px 0px rgba(0,0,0,0.75); /* Add this line */
   border-width: 1px;
