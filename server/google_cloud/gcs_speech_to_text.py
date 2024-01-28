@@ -81,5 +81,5 @@ def gcs_speech_to_text(source_file_name):
 
 
 if __name__ == "__main__":
-    audio_file_path = '/Users/graceliu/Downloads/male.wav'
+    audio_file_path = '/Users/graceliu/UofTHacksXI/server/test_out.wav'
     gcs_speech_to_text(audio_file_path)
