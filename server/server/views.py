@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from ..google_cloud.gcs_speech_to_text import gcs_speech_to_text as transcribe
+from google_cloud.gcs_speech_to_text import gcs_speech_to_text as transcribe
 import cohere
 import os
 from dotenv import load_dotenv
@@ -9,13 +9,15 @@ from django.views import View
 
 #Get audio file directories
 script_dir = os.path.dirname(os.path.abspath(__file__))
-inputpath = os.path.join(script_dir, 'Test.webm')
-outputpath = os.path.join(script_dir, 'Test.wav')
+parent_dir = os.path.dirname(script_dir)
+inputpath = os.path.join(parent_dir, 'Test.webm')
+outputpath = os.path.join(parent_dir, 'Test.wav')
 
 summary = ""
 buffer = ""
 
-def summarize():
+def summarize(request):
+    global summary
     print("study session started") 
 
     #We are starting a new converstation, clear the buffer
@@ -35,12 +37,14 @@ def summarize():
 
 
 class Upload(View):
+    print("Recieved")
     
     def __init__(self):
         self.audio_file = None
 
     @csrf_exempt
     def post(self, request):
+        global summary
         print("Process Started")
 
         #Download the file
