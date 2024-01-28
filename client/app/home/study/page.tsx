@@ -19,23 +19,31 @@ export default function Study() {
     setMessages([...messages, { text: input, sender: "user" }]);
   };
 
-  
-    // Fetch data --> 1.)
-    useEffect(() => {
-      // Fetch the Cohere data from the server
-      fetch(`http://127.0.0.1:8000/cohere`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Token ${localStorage.getItem("token")}`,
-        },
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          setCohere(data);
-          setMessages((prevMessages) => [...prevMessages, { text: data, sender: "other" }]);
-        });
-    }, []);
+  const SummarizeRecent = () => {
+    fetch('http://127.0.0.1:8000/summarize/')
+      .then(response => response.text())  // parse the response body as text
+      .then(data => console.log(data))  // print the response body
+      .catch(error => console.error('Error:', error));
+  };
+  SummarizeRecent();
+
+
+  // Fetch data --> 1.)
+  useEffect(() => {
+    // Fetch the Cohere data from the server
+    fetch(`http://127.0.0.1:8000/cohere`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setCohere(data);
+        setMessages((prevMessages) => [...prevMessages, { text: data, sender: "other" }]);
+      });
+  }, []);
   return (
     <Container className="study flex w-100">
       <Col>
@@ -67,11 +75,10 @@ export default function Study() {
             {messages.map((message, index) => (
               <div
                 key={index}
-                className={`p-2 m-2 rounded ${
-                  message.sender === "user"
-                    ? "bg-blue-500 text-white"
-                    : "bg-gray-300"
-                }`}
+                className={`p-2 m-2 rounded ${message.sender === "user"
+                  ? "bg-blue-500 text-white"
+                  : "bg-gray-300"
+                  }`}
               >
                 {message.text}
               </div>
@@ -108,7 +115,7 @@ export default function Study() {
               placeholder="Type your message..."
             />
           </form>
-          
+
         </div>
       </Col>
     </Container>
