@@ -17,10 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 import google_cloud.views
-from .views import Upload, summarize
+from .views import Upload, summarize, Message
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('processaudio/', Upload.as_view()),
-    path('summarize/', summarize)
+    path('summarize/', summarize),
+    path('message/', Message.as_view())
 ]

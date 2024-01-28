@@ -86,6 +86,7 @@ export default function Study() {
     
     fetch("http://127.0.0.1:8000/message/", {
       method: "POST",
+        headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ message: input, parent: parent, tone: tone}),
     })
       .then((response) => response.json())
