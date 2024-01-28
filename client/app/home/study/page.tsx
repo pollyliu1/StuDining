@@ -7,13 +7,12 @@ import imgMother from "../../../../assets/mother.png";
 import { Container, Col, Row } from "react-bootstrap";
 import { UserContext } from "../index";
 export default function Study() {
-  const [messages, setMessages] = useState<{ text: string; sender: string }[]>(
-    []
-  ); // Provide initial value for messages state
+ 
   const [input, setInput] = useState("");
 
-  const [Cohere, setCohere] = useState("");
-
+  let [Cohere, setCohere] = useState("");
+  const [blank, setBlank] = useState("");
+  let [isLoading, setIsLoading] = useState(true);
   const userContext = useContext(UserContext);
 
   let voice: string | undefined;
@@ -23,52 +22,75 @@ export default function Study() {
     voice = userContext.voice;
     setVoice = userContext.setVoice;
   }
+  const [messages, setMessages] = useState<{ text: string; sender: string }[]>([]);
+
+  useEffect(() => {
+  if(isLoading){
+  fetch('http://127.0.0.1:8000/summarize/')
+      .then(response => response.text()) // parse the response body as text
+      .then(data => {
+        setIsLoading(false);
+        setBlank(data);
+        
+        })
+       // print the response body
+       .catch(error => {
+        console.error('Error:', error);
+
+      });
+    }}, []);
+
+useEffect(() => {
+  if(blank != ""){
+    messages.push({ text: blank, sender: "other" });
+    }
+}, [blank]);
+
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setInput("");
+
     if (voice === "true") {
       let utterance = new SpeechSynthesisUtterance(input);
       let voicesArray = speechSynthesis.getVoices();
       utterance.voice = voicesArray[1];
       speechSynthesis.speak(utterance);
     }
+    if(input != "") {
     setMessages([...messages, { text: input, sender: "user" }]);
+    }
   };
 
+  
 
-  const SummarizeRecent = () => {
-    fetch('http://127.0.0.1:8000/summarize/')
-      .then(response => response.text())  // parse the response body as text
-      .then(data => console.log(data))  // print the response body
-      .catch(error => console.error('Error:', error));
-  };
-  SummarizeRecent();
 
   // Fetch data --> 1.)
   useEffect(() => {
     // Fetch the Cohere data from the server
     try {
       fetch(`http://127.0.0.1:8000/message`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Token ${localStorage.getItem("token")}`,
-        },
+        method: "GET"
       })
-        .then((res) => res.json())
+        .then((res) => res.text())
         .then((data) => {
           setCohere(data);
-          setMessages((prevMessages) => [
-            ...prevMessages,
-            { text: Cohere, sender: "other" },
-          ]);
         })
         .catch((error) => {});
     } catch (error) {
       console.error(error);
     }
   }, []);
+
+  useEffect(() => {
+    if(Cohere != ""){
+      setMessages([...messages, { text: Cohere, sender: "other" }]);
+      }
+
+  }, [Cohere]);
+
+
+
   return (
     <Container className="study flex w-100">
       <Col>
@@ -109,6 +131,7 @@ export default function Study() {
           >
             {messages.map((message, index) => (
               <div
+              
                 key={index}
                 className={`p-2 m-2 rounded ${
                   message.sender === "user"
