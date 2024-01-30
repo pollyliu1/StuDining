@@ -1,3 +1,4 @@
+# Link to views from urls
 from django.http import HttpResponse
 from google_cloud.gcs_speech_to_text import gcs_speech_to_text as transcribe
 import cohere
@@ -11,7 +12,7 @@ from django.views.decorators.http import require_http_methods
 import json
 
 
-#Get audio file directories
+# Get audio file directories
 script_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(script_dir)
 inputpath = os.path.join(parent_dir, 'audio.webm')
@@ -33,9 +34,9 @@ def reprompt(tone, msg = "", transcription=""):
               "User Input:\n{}\n\n" + "Text:\n{}\n\n").format(msg, transcription)
     else:
         msg = ("You are a supportive and understanding parent who values education and personal growth. \n" + 
-                          "You realize that your child might be struggling with their lecture notes and needs a gentle nudge towards appreciating their importance. \n" + 
-                          "With a tone of encouragement and patience, explain the concept from the notes, highlighting how mastering this material can open doors to a bright and successful future. \n " +
-                          "User Input:\n{}\n\n" + "Text:\n{}\n\n").format(msg, transcription)
+                "You realize that your child might be struggling with their lecture notes and needs a gentle nudge towards appreciating their importance. \n" + 
+                "With a tone of encouragement and patience, explain the concept from the notes, highlighting how mastering this material can open doors to a bright and successful future. \n " +
+                "User Input:\n{}\n\n" + "Text:\n{}\n\n").format(msg, transcription)
     return msg
 
 
@@ -107,63 +108,7 @@ class Upload(View):
             print(summary)
 
         return HttpResponse(summary)
-        
-# class Message(View):
-#     print("Received")
-#     global history
-    
-#     def __init__(self):
-#         self.message = None,
-#         self.message_prompt = None,
-#         self.history = []
-#         self.parent = "mom" # default is mom
-#         self.tone = "stern" # default is strict
-#         self.response = None
-    
-#     @csrf_exempt
-#     def post(self, request):
-#         print("Process Started")
-#         summary = "LOOK MOM I GOT AN 95 ON MY ASSIGNMENT!!!!! Why is it not 100%? Does this sound familliar to you? Many of us had these experiences, but dont you miss the times where your parents knew everything you needed and could help you in school? Love it or hate it, this childhood pressure and help formed us into that academic weapons we are today. What if you were still able to have this experience and take advantage of how you learned to learn? Introducing, Why not 100%? Here we are in the classroom, where you can record everything your prof says. We have been recording this whole time. When we study with our mom, she will know everything that was talked about in class. Do demonstrate, we are using this demo as our class. Now we are in study mode in the kitchen. Because of the recording, Mom knows what to tells us about and we cna ask questions to reinforce learning. Mom can tell encourage us like a mother does and also teach us, as she knows everything we are learning. This brings back the eccence of learning that we developed as children. If you need help judging, you can just look at what mom said"
-    
-#         # Receiving request
-#         print("getting post request")
-#         data = json.loads(request.body.decode('utf-8'))
-#         print(data)
-        
-#         # Setting request params
-#         self.message = data['message']
-#         self.parent = data['parent']
-#         self.tone = data['tone']
-#         print(self.message)
-        
-        
-        
-#         # Calling Cohere API
-#         print("Sending to cohere")
-#         co = cohere.Client(os.getenv("COHERE_API_KEY"))
-#         print(self.message_prompt)
 
-
-#         transcription = "You are a highly demanding and strict parent with no tolerance for academic laziness.\n" \
-#                     "Your child needs to understand their lecture notes perfectly. No excuses.\n" \
-#                     "Explain the concept from the notes with sharp precision and a stern " + "supportive" + ",\n" \
-#                     "emphasizing the absolute necessity of mastering this material for their future success.\n" \
-#                     "Your explanations should be direct, no-nonsense, and show your high expectations.\n" \
-#                     "Pretend your child doesn't listen in class. Pretend you want to slap them.\n" \
-#                     "Your child doesn't want to listen so use mean language.\n\n" \
-#                     "User Input:\n" + self.message + "\n\nContext:\n" + summary
-#         print(transcription)
-
-#         response = co.generate(
-#             model='command',
-#             prompt=transcription,
-#             max_tokens=300,
-#             temperature=0.75,
-#             k=0,
-#             stop_sequences=[],
-#             return_likelihoods='NONE').generations[0].text
-#         print(response)   
-#         return HttpResponse(response)
 
 class Message(View):
     print("Received")
@@ -174,7 +119,7 @@ class Message(View):
         self.message_prompt = None,
         self.history = []
         self.parent = "mother" # default is mom
-        self.tone = "stern" # default is strict
+        self.tone = "stern" # default is stern
         self.response = None
     
     @csrf_exempt
