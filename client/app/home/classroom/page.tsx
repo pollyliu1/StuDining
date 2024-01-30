@@ -24,7 +24,7 @@ export default function Classroom() {
           <Image src={img} width={437} height={10} alt={"whoopsies"}></Image>
         </div>
       </Col>
-      <Col style={{ display: "flex", left: 0, marginTop:  "12.7rem", marginLeft:  "21.55rem"   }}>
+      <Col style={{ display: "flex", left: 0, marginTop:  "12.7rem", marginLeft:  "5.55rem" }}>
         <AudioRecorder></AudioRecorder>
       </Col>
     </Container>
