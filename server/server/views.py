@@ -51,9 +51,7 @@ def summarize(request):
         
         # Default for if you have no class information
         if summary == "":
-            summary = "Disgraceful child how dare you not be attending class, " \
-            "you are a disgrace to the family. You are not my child. I am disowning you."\
-            " You are no longer my child."
+            summary = "Child how dare you not be attending class."
             print("No transcription found")
 
         # Return
@@ -98,13 +96,8 @@ class Upload(View):
         convert_webm_to_wav(inputpath, outputpath)
         # Send the wav file to the speech to text api
         transcription += transcribe(outputpath)
-        transcription += ("Properties of Matter: An explanation of the most fundamental concept in chemistry: matter." + "\n"
-"Atomic Structure: While technically in the domain of physics, atoms determine the behavior of matter, making them a necessary starting point for any discussion of chemistry." + "\n"
-"Compounds and Bonding: Chemical bonding is introduced, which explains how less than one hundred naturally-occurring elements can combine to form all the different compounds that fill our world." + "\n"
-"Chemical Reactions: Things get interesting once chemical reactions start making and breaking bonds." + "\n"
-"Aqueous Solutions: Substances dissolved in water have special properties. This is when acids and bases are introduced.")        
         print(transcription)
-        prompt = reprompt("stern", "", transcription)
+        prompt = "You are a parent who values education and personal growth. Explain the concept from the notes with sharp precision" + ("\nText:\n{}\n\n").format(transcription)
         # Send the transcription to the summarization api
         if prompt != "":
             print("Sending to cohere")
